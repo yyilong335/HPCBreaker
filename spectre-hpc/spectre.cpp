@@ -13,6 +13,8 @@
 #define sscanf_s sscanf
 #endif
 
+#include "pfc.h"
+
 /********************************************************************
 Victim code.
 ********************************************************************/
@@ -28,10 +30,12 @@ uint8_t temp = 0; /* Used so compiler won't optimize out victim_function() */
 
 void victim_function(size_t x)
 {
+	PFC_TIC
 	if (x < array1_size)
 	{
 		temp &= array2[array1[x] * 512];
 	}
+	PFC_TOC
 }
 
 /********************************************************************
@@ -118,6 +122,7 @@ void readMemoryByte(size_t malicious_x, uint8_t value[2], int score[2])
 
 int main(int argc, const char* * argv)
 {
+	pfc_setup();
 	printf("Putting '%s' in memory, address %p\n", secret, (void *)(secret));
 	size_t malicious_x = (size_t)(secret - (char *)array1); /* default for malicious_x */
 	int score[2], len = strlen(secret);
@@ -151,5 +156,6 @@ int main(int argc, const char* * argv)
 	printf("Press ENTER to exit\n");
 	getchar();	/* Pause Windows console */
 #endif
+	pfc_print();
 	return (0);
 }
