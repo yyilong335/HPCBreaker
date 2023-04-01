@@ -18,7 +18,7 @@ modprobe msr
 echo 2 > /sys/bus/event_source/devices/cpu/rdpmc
 
 # disable smt
-echo off > /sys/devices/system/cpu/smt/control
+# echo off > /sys/devices/system/cpu/smt/control
 
 # disable hyper-threading
 for i in $(seq 1 255)
