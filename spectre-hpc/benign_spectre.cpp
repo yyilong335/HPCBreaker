@@ -27,7 +27,7 @@ uint8_t array2[256 * 512];
 
 char const * secret = "The Magic Words are Squeamish Ossifrage.";
 
-uint8_t temp, temp1, i = 0; /* Used so compiler won't optimize out victim_function() */
+uint8_t temp; /* Used so compiler won't optimize out victim_function() */
 
 void victim_function(size_t x)
 {
