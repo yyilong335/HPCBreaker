@@ -67,7 +67,7 @@ struct pfc_config {
 };
 struct pfc_config pfc_configs[1000] = {{0}};
 size_t n_pfc_configs = 0;
-char pfc_config_file_content_hardcoded[1024] = "89.81 BR_MISP_EXEC.TAKEN_CONDITIONAL\n2E.4F LONGEST_LAT_CACHE.REFERENCE\n2E.41 LONGEST_LAT_CACHE.MISS\n"; // update pfc here
+char pfc_config_file_content_hardcoded[1024] = "D1.01 MEM_LOAD_UOPS_RETIRED.L1_HIT\nD1.08 MEM_LOAD_UOPS_RETIRED.L1_MISS\n"; // update pfc here
 
 
 struct msr_config {
