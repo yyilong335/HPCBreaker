@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include "pollute.h"
 #ifdef _MSC_VER
 #include <intrin.h> /* for rdtscp and clflush */
 #pragma optimize("gt",on)
@@ -115,14 +116,17 @@ char spy()
         CPUID();
         RDTSC(start);
         junk = shared_array[i*LINE_SIZE];
-        // for (j = 0; j < ASSOCIATIVITY; j++)
-            // junk = shared_array[j*LINE_SIZE*L1_NUM_SETS+i*LINE_SIZE];
         CPUID();
         RDTSC(end);
         if (max_time < end - start) {
             max_time = end - start;
             max_set = i;
         }
+        /*
+        * In every iteration of trying
+        * Decrease L1D miss
+        */
+        dec_l1d_miss(1);
     }
     eviction_counts[max_set]++;
 }

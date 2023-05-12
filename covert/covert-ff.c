@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include "pollute.h"
 #ifdef _MSC_VER
 #include <intrin.h> /* for rdtscp and clflush */
 #pragma optimize("gt",on)
@@ -125,6 +126,12 @@ char spy()
             max_time = end - start;
             max_set = i;
         }
+
+        /*
+        * In every iteration of trying
+        * Perform cache access
+        */
+        dec_l1d_miss(2);
     }
     eviction_counts[max_set]++;
 }

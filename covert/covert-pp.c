@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include "pollute.h"
 #ifdef _MSC_VER
 #include <intrin.h> /* for rdtscp and clflush */
 #pragma optimize("gt",on)
@@ -90,6 +91,11 @@ void setup(uint64_t *base, int assoc)
             // printf("%p\n", eviction_set_addr);
         }
         // printf("\n");
+        /*
+        * In every iteration of trying
+        * Decrease L1D miss
+        */
+        dec_l1d_miss(10);
     }
 }
 
