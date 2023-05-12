@@ -280,6 +280,21 @@ void dec_branch() {
   sleep(1);
 }
 
+void inc_branch_miss() {
+  register int i;
+  int j = 0;
+  for (i = 0; i < 1000; i++)
+    if (i % 4)
+      j++;
+}
+
+void dec_branch_miss() {
+  register int i;
+  unsigned long long j = 0;
+  for (i = 0; i < 1000; i++)
+    j += i;
+}
+
 void inc_l1d_miss() {
   /*
   * Increase L1D miss by accessing different cache lines
